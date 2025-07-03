@@ -27,4 +27,14 @@
         android:layout_height="wrap_content"
         android:text="Start" />
 
+    <TextView
+        android:id="@+id/paceDisplay"
+        android:layout_below="@id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aktuelle Pace: --"
+        android:textSize="18sp"
+        android:layout_marginTop="32dp"
+        />
+
 </RelativeLayout>

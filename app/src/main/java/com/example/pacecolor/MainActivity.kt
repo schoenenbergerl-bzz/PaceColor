@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
     private var desiredPace: Double = 0.0
     private var tolerance: Int = 0
 
+    private lateinit var paceDisplay: TextView
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         paceInput = findViewById(R.id.paceInput)
         toleranceInput = findViewById(R.id.toleranceInput)
         val startButton: Button = findViewById(R.id.startButton)
+        paceDisplay = findViewById(R.id.paceDisplay)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -77,6 +81,8 @@ class MainActivity : AppCompatActivity() {
                 if (timeDiff > 0) {
                     val speedMps = distance / timeDiff
                     val paceMinPerKm = (1000 / speedMps) / 60
+                    val paceText = String.format("%.2f min/km", paceMinPerKm)
+                    paceDisplay.text = "Aktuelle Pace: $paceText"
 
                     updateBackgroundColor(paceMinPerKm)
                 }
