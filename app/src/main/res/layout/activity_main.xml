@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="32dp">
+
+    <EditText
+        android:id="@+id/paceInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Zielpace (min/km, z.B. 5.30)"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/toleranceInput"
+        android:layout_below="@id/paceInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Toleranz (Sekunden)"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_below="@id/toleranceInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start" />
+
+</RelativeLayout>

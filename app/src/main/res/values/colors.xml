@@ -1,0 +1,5 @@
+<resources>
+    <color name="too_slow">#FF0000</color> <!-- Rot -->
+    <color name="too_fast">#0000FF</color> <!-- Blau -->
+    <color name="on_pace">#00FF00</color> <!-- Grün -->
+</resources>
