@@ -1,6 +1,7 @@
 package com.example.pacecolor
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -22,11 +23,20 @@ class MainActivity : AppCompatActivity() {
     private var tolerance: Int = 0
 
     private lateinit var paceDisplay: TextView
+    private lateinit var darkModeButton: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        darkModeButton = findViewById(R.id.darkModeButton)
+
+        darkModeButton.setOnClickListener {
+            val intent = Intent(this, DarkModeActivity::class.java)
+            startActivity(intent)
+        }
+
 
         layout = findViewById(R.id.mainLayout)
         paceInput = findViewById(R.id.paceInput)

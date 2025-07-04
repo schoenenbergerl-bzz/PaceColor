@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
+    android:id="@+id/darkLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp">
+    android:background="#000000"
+    android:padding="24dp">
 
     <EditText
         android:id="@+id/paceInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Zielpace (min/km, z.B. 5.30)"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:textColorHint="#888888"
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/toleranceInput"
@@ -19,6 +21,8 @@
         android:layout_height="wrap_content"
         android:hint="Toleranz (Sekunden)"
         android:inputType="number"
+        android:textColorHint="#888888"
+        android:textColor="#FFFFFF"
         android:layout_marginTop="16dp" />
 
     <Button
@@ -29,21 +33,20 @@
         android:text="Start"
         android:layout_marginTop="24dp" />
 
-
     <TextView
         android:id="@+id/paceDisplay"
+        android:layout_below="@id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/startButton"
-        android:layout_marginTop="24dp"
-        android:text="Aktuelle Pace: --" />
+        android:text="Aktuelle Pace: --"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="24dp" />
 
     <Button
-        android:id="@+id/darkModeButton"
+        android:id="@+id/backButton"
+        android:layout_below="@id/paceDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/paceDisplay"
-        android:layout_marginTop="32dp"
-        android:text="Dark Mode" />
-
+        android:text="Light Mode"
+        android:layout_marginTop="32dp" />
 </RelativeLayout>
