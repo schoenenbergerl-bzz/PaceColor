@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
+    android:id="@+id/darkLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:background="#FFFFFF">
+    android:background="#000000">
 
     <TextView
         android:id="@+id/runNameView"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Lauf: "
         android:textSize="18sp"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp" />
@@ -22,6 +22,8 @@
         android:layout_height="wrap_content"
         android:hint="Zielpace (min/km)"
         android:inputType="numberDecimal"
+        android:textColorHint="#888888"
+        android:textColor="#FFFFFF"
         android:layout_below="@id/runNameView"
         android:layout_marginTop="16dp" />
 
@@ -31,6 +33,8 @@
         android:layout_height="wrap_content"
         android:hint="Toleranz (Sekunden)"
         android:inputType="number"
+        android:textColorHint="#888888"
+        android:textColor="#FFFFFF"
         android:layout_below="@id/paceInput"
         android:layout_marginTop="16dp" />
 
@@ -48,14 +52,17 @@
         android:layout_height="wrap_content"
         android:text="Aktuelle Pace: --"
         android:textSize="16sp"
+        android:textColor="#FFFFFF"
         android:layout_below="@id/startButton"
         android:layout_marginTop="24dp" />
 
     <Button
-        android:id="@+id/darkModeButton"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dark Mode"
+        android:text="Light Mode"
         android:layout_below="@id/paceDisplay"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#444444" />
 </RelativeLayout>
