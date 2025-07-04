@@ -1,6 +1,7 @@
 package com.example.pacecolor
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -16,19 +17,41 @@ class MainActivity : AppCompatActivity() {
     private lateinit var layout: RelativeLayout
     private lateinit var paceInput: EditText
     private lateinit var toleranceInput: EditText
+    private lateinit var paceDisplay: TextView
+    private lateinit var runNameView: TextView
+    private lateinit var darkModeButton: Button
 
-    private var lastLocation: Location? = null
     private var desiredPace: Double = 0.0
     private var tolerance: Int = 0
+    private var lastLocation: Location? = null
+    private var runName: String = ""
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        runName = intent.getStringExtra("runName") ?: ""
+
+        darkModeButton = findViewById(R.id.darkModeButton)
+
+        darkModeButton.setOnClickListener {
+            val intent = Intent(this, DarkModeActivity::class.java)
+            intent.putExtra("runName", runName)
+            startActivity(intent)
+
+        }
+
+
         layout = findViewById(R.id.mainLayout)
         paceInput = findViewById(R.id.paceInput)
         toleranceInput = findViewById(R.id.toleranceInput)
         val startButton: Button = findViewById(R.id.startButton)
+        paceDisplay = findViewById(R.id.paceDisplay)
+        runNameView = findViewById(R.id.runNameView)
+        runNameView.text = "Lauf: $runName"
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -77,6 +100,8 @@ class MainActivity : AppCompatActivity() {
                 if (timeDiff > 0) {
                     val speedMps = distance / timeDiff
                     val paceMinPerKm = (1000 / speedMps) / 60
+                    val paceText = String.format("%.2f min/km", paceMinPerKm)
+                    paceDisplay.text = "Aktuelle Pace: $paceText"
 
                     updateBackgroundColor(paceMinPerKm)
                 }
