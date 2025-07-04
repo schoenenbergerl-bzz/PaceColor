@@ -2,51 +2,67 @@
     android:id="@+id/darkLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="#000000">
+
+    <TextView
+        android:id="@+id/runNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lauf: "
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp" />
 
     <EditText
         android:id="@+id/paceInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Zielpace (min/km, z.B. 5.30)"
+        android:hint="Zielpace (min/km)"
         android:inputType="numberDecimal"
         android:textColorHint="#888888"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:layout_below="@id/runNameView"
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/toleranceInput"
-        android:layout_below="@id/paceInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Toleranz (Sekunden)"
         android:inputType="number"
         android:textColorHint="#888888"
         android:textColor="#FFFFFF"
+        android:layout_below="@id/paceInput"
         android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/startButton"
-        android:layout_below="@id/toleranceInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
+        android:layout_below="@id/toleranceInput"
         android:layout_marginTop="24dp" />
 
     <TextView
         android:id="@+id/paceDisplay"
-        android:layout_below="@id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Aktuelle Pace: --"
+        android:textSize="16sp"
         android:textColor="#FFFFFF"
+        android:layout_below="@id/startButton"
         android:layout_marginTop="24dp" />
 
     <Button
         android:id="@+id/backButton"
-        android:layout_below="@id/paceDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Light Mode"
-        android:layout_marginTop="32dp" />
+        android:layout_below="@id/paceDisplay"
+        android:layout_marginTop="32dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#444444" />
 </RelativeLayout>

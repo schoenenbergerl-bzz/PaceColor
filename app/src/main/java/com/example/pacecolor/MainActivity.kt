@@ -17,24 +17,30 @@ class MainActivity : AppCompatActivity() {
     private lateinit var layout: RelativeLayout
     private lateinit var paceInput: EditText
     private lateinit var toleranceInput: EditText
+    private lateinit var paceDisplay: TextView
+    private lateinit var runNameView: TextView
+    private lateinit var darkModeButton: Button
 
-    private var lastLocation: Location? = null
     private var desiredPace: Double = 0.0
     private var tolerance: Int = 0
+    private var lastLocation: Location? = null
+    private var runName: String = ""
 
-    private lateinit var paceDisplay: TextView
-    private lateinit var darkModeButton: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        runName = intent.getStringExtra("runName") ?: ""
+
         darkModeButton = findViewById(R.id.darkModeButton)
 
         darkModeButton.setOnClickListener {
             val intent = Intent(this, DarkModeActivity::class.java)
+            intent.putExtra("runName", runName)
             startActivity(intent)
+
         }
 
 
@@ -43,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         toleranceInput = findViewById(R.id.toleranceInput)
         val startButton: Button = findViewById(R.id.startButton)
         paceDisplay = findViewById(R.id.paceDisplay)
+        runNameView = findViewById(R.id.runNameView)
+        runNameView.text = "Lauf: $runName"
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 

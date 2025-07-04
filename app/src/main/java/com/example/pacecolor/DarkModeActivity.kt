@@ -1,4 +1,3 @@
-// DarkModeActivity.kt
 package com.example.pacecolor
 
 import android.Manifest
@@ -20,30 +19,38 @@ class DarkModeActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var toleranceInput: EditText
     private lateinit var layout: RelativeLayout
     private lateinit var paceDisplay: TextView
+    private lateinit var runNameView: TextView
     private lateinit var startButton: Button
     private lateinit var switchToLightButton: Button
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     private var desiredPace = 0.0
     private var tolerance = 0
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1002
     private var lastLocation: Location? = null
+    private var runName: String = ""
 
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
     private var stepCount = 0
 
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1002
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dark_mode)
+
+        runName = intent.getStringExtra("runName") ?: ""
 
         layout = findViewById(R.id.darkLayout)
         paceInput = findViewById(R.id.paceInput)
         toleranceInput = findViewById(R.id.toleranceInput)
         paceDisplay = findViewById(R.id.paceDisplay)
+        runNameView = findViewById(R.id.runNameView)
         startButton = findViewById(R.id.startButton)
         switchToLightButton = findViewById(R.id.backButton)
 
-        layout.setBackgroundColor(0xFF000000.toInt())
+        runNameView.text = "Lauf: $runName"
+        layout.setBackgroundColor(0xFF000000.toInt()) // schwarzer Hintergrund
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -66,14 +73,12 @@ class DarkModeActivity : AppCompatActivity(), SensorEventListener {
 
         switchToLightButton.text = "Light Mode"
         switchToLightButton.setOnClickListener {
-            finish() // zurück zur MainActivity
+            finish() // Zurück zur MainActivity
         }
     }
 
     private fun startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -82,9 +87,9 @@ class DarkModeActivity : AppCompatActivity(), SensorEventListener {
             return
         }
 
-        val locationRequest = LocationRequest.Builder(
-            Priority.PRIORITY_HIGH_ACCURACY, 2000
-        ).setMinUpdateIntervalMillis(1000).build()
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 2000)
+            .setMinUpdateIntervalMillis(1000)
+            .build()
 
         fusedLocationClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
             override fun onLocationResult(result: LocationResult) {
@@ -111,15 +116,13 @@ class DarkModeActivity : AppCompatActivity(), SensorEventListener {
         val color = when {
             pace < lower -> 0xFF4444AA.toInt() // dunkelblau
             pace > upper -> 0xFFAA4444.toInt() // dunkelrot
-            else -> 0xFF228822.toInt() // dunkelgrün
+            else -> 0xFF228822.toInt()         // dunkelgrün
         }
         layout.setBackgroundColor(color)
     }
 
     private fun checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -128,9 +131,14 @@ class DarkModeActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE &&
+            grantResults.isNotEmpty() &&
+            grantResults[0] == PackageManager.PERMISSION_GRANTED
+        ) {
             startLocationUpdates()
         } else {
             Toast.makeText(this, "Standortberechtigung abgelehnt", Toast.LENGTH_SHORT).show()
